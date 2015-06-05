@@ -26,9 +26,9 @@ public class RequestHandler extends Thread {
 		try (InputStream in = connection.getInputStream(); OutputStream out = connection.getOutputStream()) {
 			// TODO 사용자 요청에 대한 처리는 이 곳에 구현하면 된다.
 			DataOutputStream dos = new DataOutputStream(out);
-			byte[] body = "Hello World".getBytes();
-			//String filename = "lec11a.pdf";
-			//byte[] body = Files.readAllBytes(new File("./webapp" + filename).toPath());
+			//byte[] body = "Hello World".getBytes();
+			String filename = "/lec11a.pdf";
+			byte[] body = Files.readAllBytes(new File("./webapp" + filename).toPath());
 			response200Header(dos, body.length);
 			responseBody(dos, body);
 		} catch (IOException e) {
@@ -39,7 +39,7 @@ public class RequestHandler extends Thread {
 	private void response200Header(DataOutputStream dos, int lengthOfBodyContent) {
 		try {
 			dos.writeBytes("HTTP/1.1 200 OK \r\n");
-			dos.writeBytes("Content-Type: text/html;charset=utf-8\r\n");
+			dos.writeBytes("Content-Type: application/pdf;charset=utf-8\r\n");
 			dos.writeBytes("Content-Length: " + lengthOfBodyContent + "\r\n");
 			dos.writeBytes("\r\n");
 		} catch (IOException e) {
